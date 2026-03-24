@@ -140,10 +140,3 @@ print(f"DBSCAN Clusters: {set(map(int, df['DBSCAN_Cluster']))}")
 
 print("\nCluster-wise Analysis (KMeans):")
 print(df.groupby('KMeans_Cluster').mean(numeric_only=True))
-
-from geopy.geocoders import Nominatim
-geolocator = Nominatim(user_agent="crime_mapper")
-df['Coordinates'] = df['City'] + ", " + df['State']
-df['Location'] = df['Coordinates'].apply(lambda x: geolocator.geocode(x))
-df['Latitude'] = df['Location'].apply(lambda loc: loc.latitude if loc else np.nan)
-df['Longitude'] = df['Location'].apply(lambda loc: loc.longitude if loc else np.nan)
